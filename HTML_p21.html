@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Control del LED</title>
+<script>
+const ESP_IP = 'http://192.168.1.162'; // Cambia esto por la dirección IP real del ESP8266
+
+function toggleLED(state) {
+  fetch(`${ESP_IP}/toggleLED?state=${state}`, { method: 'GET' })
+    .then(response => response.text())
+    .then(data => {
+      console.log(data);
+      getLEDState(); // Obtiene el estado actual después de cambiar el LED
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+function getLEDState() {
+  fetch(`${ESP_IP}/getLEDState`, { method: 'GET' })
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('status').innerText = 'Estado del LED: ' + data;
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+// Actualiza el estado del LED cada segundo
+setInterval(getLEDState, 1000);
+</script>
+</head>
+<body>
+<h1>Control del LED del Arduino MEGA</h1>
+<button onclick="toggleLED('ON')">Encender LED</button>
+<button onclick="toggleLED('OFF')">Apagar LED</button>
+<p id="status">Estado del LED: Desconocido</p>
+</body>
+</html>
+
