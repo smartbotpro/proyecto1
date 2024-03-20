@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <title>Control del LED</title>
 <script>
-const ESP_IP = 'http://192.168.1.136'; // Cambia esto por la dirección IP real del ESP8266
+const ESP_IP = 'http://192.168.1.162'; // Cambia esto por la direcciÃ³n IP real del ESP8266
 
 function toggleLED(state) {
   fetch(`${ESP_IP}/toggleLED?state=${state}`, { method: 'GET' })
     .then(response => response.text())
     .then(data => {
       console.log(data);
-      getLEDState(); // Obtiene el estado actual después de cambiar el LED
+      getLEDState(); // Obtiene el estado actual despuÃ©s de cambiar el LED
     })
     .catch(error => console.error('Error:', error));
 }
